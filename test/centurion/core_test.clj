@@ -12,18 +12,18 @@
 
 (deftest executing
   (testing
-    (is (= 'one (interpret "one")))
-    (is (= 'one ((interpret "(function x x)") 'one)))
-    (is (= '(one two) (to-list (interpret "(cons one (cons two nil))"))))
-    (is (= 1 (interpret "(case foo foo 1 2)")))
-    (is (= 2 (interpret "(case foo bar 1 2)")))
-    (is (= 'foo (interpret "((cons foo nil) head)")))
-    (is (= (symbol "nil") (interpret "((cons foo nil) tail)")))
-    (is (= 2 (interpret "(plus 1 1)")))
-    (is (= 0 (interpret "(minus 1 1)")))
-    (is (= '{x three} (interpret "(let x three (export x))")))
-    (is (= 2 (interpret "((function f (f (f 0))) (plus 1))")))
-    (is (= 0 (interpret " ; comments are fun
+    (is (= 'one (-main "one")))
+    (is (= 'one ((-main "(function x x)") 'one)))
+    (is (= '(one two) (to-list (-main "(cons one (cons two nil))"))))
+    (is (= 1 (-main "(case foo foo 1 2)")))
+    (is (= 2 (-main "(case foo bar 1 2)")))
+    (is (= 'foo (-main "((cons foo nil) head)")))
+    (is (= (symbol "nil") (-main "((cons foo nil) tail)")))
+    (is (= 2 (-main "(plus 1 1)")))
+    (is (= 0 (-main "(minus 1 1)")))
+    (is (= '{x three} (-main "(let x three (export x))")))
+    (is (= 2 (-main "((function f (f (f 0))) (plus 1))")))
+    (is (= 0 (-main " ; comments are fun
                         (plus 0 0)")))))
 
 (deftest programs
@@ -38,7 +38,7 @@
                (cons (is-even? 3)
                (cons (is-even? 4)
                  nil)))"]
-    (is (= '(no yes) (to-list (interpret program)))))
+    (is (= '(no yes) (to-list (-main program)))))
     (let [program
             "(let reverse
                ((recursive
@@ -47,7 +47,7 @@
                       (recurse (cons (ys head) xs) (ys tail)))))
                  nil)
                (reverse (cons one (cons two (cons three nil)))))"]
-    (is (= '(three two one) (to-list (interpret program)))))
+    (is (= '(three two one) (to-list (-main program)))))
     (let [program
             "(let max
                (recursive
@@ -56,7 +56,7 @@
                    (case y 0 x
                      (plus 1 (recurse (minus x 1) (minus y 1)))))))
                  (reduce max 0 (cons 2 (cons 1 nil))))"]
-    (is (= 2 (interpret program))))
+    (is (= 2 (-main program))))
     (let [program
             "(map (plus 1) (cons 1 (cons 2 (cons 3 nil))))"]
-    (is (= '(2 3 4) (to-list (interpret program)))))))
+    (is (= '(2 3 4) (to-list (-main program)))))))

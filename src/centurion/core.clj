@@ -94,7 +94,7 @@
 (def built-ins {'plus  (fn [x] (fn [y] (+ x y)))
                 'minus (fn [x] (fn [y] (- x y)))})
 
-(defn interpret
-  ([] (print "repl> ") (flush) (-> (read-line) interpret println) (interpret))
-  ([input] (-> input (interpret (merge built-ins (interpret standard-library {})))))
+(defn -main
+  ([] (print "repl> ") (flush) (-> (read-line) -main println) (-main))
+  ([input] (-> input (-main (merge built-ins (-main standard-library {})))))
   ([input env] (-> input term first (evaluate env))))
