@@ -2,6 +2,12 @@
   (:require [clojure.test :refer :all]
             [centurion.core :refer :all]))
 
+(deftest size
+  (testing
+    (is (>= 100 (->> (slurp "src/centurion/core.clj")
+                    (filter #{\newline})
+                    count)))))
+
 (deftest parsing
   (testing
     (is (= ['(foo bar (baz 9)) [\m \o \r \e]] (term " (foo bar (baz 9))more")))))
