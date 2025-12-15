@@ -1,7 +1,7 @@
 # Centurion
 A hundred line Lisp.
 
-[![Build Status](https://travis-ci.org/ctford/centurion.png)](https://travis-ci.org/ctford/centurion)
+[![CI](https://github.com/ctford/centurion/actions/workflows/ci.yml/badge.svg)](https://github.com/ctford/centurion/actions/workflows/ci.yml)
 
 ## Running the tests
 
