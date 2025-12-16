@@ -99,7 +99,7 @@ Length of a list:
 ; => 3                                      ; => 3
 ```
 
-Reverse a list:
+Reverse a list (Centurion version is not stack-safe):
 ```lisp
 (let reverse                                      ; (defn reverse [lst]
   ((recursive                                     ;   (loop [xs '() ys lst]
