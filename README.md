@@ -11,6 +11,14 @@ A hundred line Lisp.
 
     lein run
 
+## Features
+
+- **Currying** - Multi-parameter functions are automatically curried
+- **Recursion via Y Combinator** - The `recursive` form enables recursive functions without explicit self-reference
+- **Church-encoded Lists** - Lists represented as functions that return head or tail
+- **Higher-order Functions** - Built-in `map`, `reduce`, and `compose` in the standard library
+- **Lexical Scoping** - `let` bindings with proper closure semantics
+
 ## Examples
 
 ### Lambdas and Functions
