@@ -17,13 +17,13 @@ A hundred line Lisp.
 
 Simple lambda:
 ```lisp
-((function x (plus x 1)) 5)
+((function x (plus x 1)) 5)  ; ((fn [x] (+ x 1)) 5)
 ; => 6
 ```
 
 Curried functions with multiple parameters:
 ```lisp
-((function x y (plus x y)) 3 4)
+((function x y (plus x y)) 3 4)  ; ((fn [x y] (+ x y)) 3 4)
 ; => 7
 ```
 
@@ -31,24 +31,24 @@ Curried functions with multiple parameters:
 
 Build a list:
 ```lisp
-(cons 1 (cons 2 (cons 3 nil)))
+(cons 1 (cons 2 (cons 3 nil)))  ; '(1 2 3)
 ```
 
 Map - add 1 to each element:
 ```lisp
-(map (plus 1) (cons 1 (cons 2 (cons 3 nil))))
+(map (plus 1) (cons 1 (cons 2 (cons 3 nil))))  ; (map inc '(1 2 3))
 ; => (2 3 4)
 ```
 
 Reduce - sum a list:
 ```lisp
-(reduce plus 0 (cons 1 (cons 2 (cons 3 nil))))
+(reduce plus 0 (cons 1 (cons 2 (cons 3 nil))))  ; (reduce + 0 '(1 2 3))
 ; => 6
 ```
 
 Compose functions:
 ```lisp
-((compose (plus 1) (plus 2)) 3)
+((compose (plus 1) (plus 2)) 3)  ; ((comp #(+ % 1) #(+ % 2)) 3)
 ; => 6
 ```
 
@@ -56,46 +56,48 @@ Compose functions:
 
 Fibonacci numbers:
 ```lisp
-(let fib
-  (recursive
-    (function recurse n
-      (case n 0 0
-      (case n 1 1
-        (plus (recurse (minus n 1)) (recurse (minus n 2)))))))
-  (fib 7))
-; => 13
+(let fib                             ; (defn fib [n]
+  (recursive                         ;   (cond
+    (function recurse n              ;     (= n 0) 0
+      (case n 0 0                    ;     (= n 1) 1
+      (case n 1 1                    ;     :else (+ (fib (- n 1))
+        (plus                        ;              (fib (- n 2)))))
+          (recurse (minus n 1))      ;
+          (recurse (minus n 2))))))) ;
+  (fib 7))                           ; (fib 7)
+; => 13                              ; => 13
 ```
 
 Check if a number is even:
 ```lisp
-(let is-even?
-  (recursive
-    (function recurse n
-      (case n 0 yes
-      (case n 1 no
-        (recurse (minus n 2))))))
-  (is-even? 4))
-; => yes
+(let is-even?                       ; (defn is-even? [n]
+  (recursive                        ;   (cond
+    (function recurse n             ;     (= n 0) true
+      (case n 0 yes                 ;     (= n 1) false
+      (case n 1 no                  ;     :else (is-even? (- n 2))))
+        (recurse (minus n 2)))))))  ;
+  (is-even? 4))                     ; (is-even? 4)
+; => yes                            ; => true
 ```
 
 ### Building Your Own Functions
 
 Length of a list:
 ```lisp
-(let length
-  (reduce (function x acc (plus acc 1)) 0)
-  (length (cons 1 (cons 2 (cons 3 nil)))))
-; => 3
+(let length                                 ; (defn length [lst]
+  (reduce (function x acc (plus acc 1)) 0)  ;   (reduce (fn [acc _] (inc acc)) 0 lst))
+  (length (cons 1 (cons 2 (cons 3 nil)))))  ; (length '(1 2 3))
+; => 3                                      ; => 3
 ```
 
 Reverse a list:
 ```lisp
-(let reverse
-  ((recursive
-    (function recurse xs ys
-      (case ys nil xs
-        (recurse (cons (ys head) xs) (ys tail)))))
-   nil)
-  (reverse (cons one (cons two (cons three nil)))))
-; => (three two one)
+(let reverse                                       ; (defn reverse [lst]
+  ((recursive                                      ;   (loop [xs '() ys lst]
+    (function recurse xs ys                        ;     (if (empty? ys)
+      (case ys nil xs                              ;       xs
+        (recurse (cons (ys head) xs) (ys tail))))  ;       (recur (cons (first ys) xs) (rest ys)))))
+   nil)                                            ;
+  (reverse (cons one (cons two (cons three nil)))));  (reverse '(one two three))
+; => (three two one)                               ; => (three two one)
 ```
