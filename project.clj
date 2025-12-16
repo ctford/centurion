@@ -3,5 +3,5 @@
   :main centurion.core
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.11.1"]
                  [org.clojure/core.match "1.1.0"]])
