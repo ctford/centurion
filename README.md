@@ -7,7 +7,7 @@ A hundred line Lisp.
 
     lein test
 
-## Running the repl
+## Running the Centurion REPL
 
     lein run
 
