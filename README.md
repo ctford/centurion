@@ -100,12 +100,12 @@ Length of a list:
 
 Reverse a list:
 ```lisp
-(let reverse                                       ; (defn reverse [lst]
-  ((recursive                                      ;   (loop [xs '() ys lst]
-    (function recurse xs ys                        ;     (if (empty? ys)
-      (case ys nil xs                              ;       xs
-        (recurse (cons (ys head) xs) (ys tail))))  ;       (recur (cons (first ys) xs) (rest ys)))))
-   nil)                                            ;
-  (reverse (cons one (cons two (cons three nil)))));  (reverse '(one two three))
-; => (three two one)                               ; => (three two one)
+(let reverse                                      ; (defn reverse [lst]
+  ((recursive                                     ;   (loop [xs '() ys lst]
+    (function recurse xs ys                       ;     (if (empty? ys)
+      (case ys nil xs                             ;       xs
+        (recurse (cons (ys head) xs) (ys tail)))) ;       (recur (cons (first ys) xs) (rest ys)))))
+   nil)                                           ;
+  (reverse (cons a (cons b (cons c nil)))))       ;  (reverse '(a b c))
+; => (c b a)                                      ; => (c b a)
 ```
