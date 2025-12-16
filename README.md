@@ -13,7 +13,7 @@ A hundred line Lisp.
 
 ## Features
 
-- **Natural Numbers** - Integer literals and arithmetic via `plus` and `minus`
+- **Natural Numbers** - Positive integer literals and arithmetic via `plus` and `minus`
 - **Currying** - Multi-parameter functions are automatically curried
 - **Recursion via Y Combinator** - The `recursive` form enables recursive functions without explicit self-reference
 - **Church-encoded Lists** - Lists represented as functions that return head or tail
