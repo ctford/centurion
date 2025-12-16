@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Pre-commit hook that runs tests before allowing a commit
+
+echo "Running tests before commit..."
+lein test
+
+# Capture the exit code
+TEST_EXIT_CODE=$?
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+  echo "Tests failed. Commit aborted."
+  exit 1
+fi
+
+echo "All tests passed!"
+exit 0
