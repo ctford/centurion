@@ -13,10 +13,11 @@ A hundred line Lisp.
 
 ## Features
 
+- **Natural Numbers** - Integer literals and arithmetic via `plus` and `minus`
 - **Currying** - Multi-parameter functions are automatically curried
 - **Recursion via Y Combinator** - The `recursive` form enables recursive functions without explicit self-reference
 - **Church-encoded Lists** - Lists represented as functions that return head or tail
-- **Higher-order Functions** - Built-in `map`, `reduce`, and `compose` in the standard library
+- **Standard Library** - Provides `map`, `reduce`, and `compose`
 - **Lexical Scoping** - `let` bindings with proper closure semantics
 
 ## Examples
